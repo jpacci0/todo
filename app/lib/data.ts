@@ -6,10 +6,16 @@ export async function fetchJobs() {
 
   try {
     const jobsCompleted = sql`
-            SELECT * FROM jobs WHERE completato = true
-        `;
+      SELECT jobs.*, priority.prio AS prio
+      FROM jobs
+      JOIN priority ON jobs.priority_id = priority.id
+      WHERE jobs.completato = true;    
+    `;
     const jobsUncompleted = sql`
-        SELECT * FROM jobs WHERE completato = false
+      SELECT jobs.*, priority.prio AS prio
+      FROM jobs
+      JOIN priority ON jobs.priority_id = priority.id
+      WHERE jobs.completato = false;
     `;
 
     const jobsC = (await jobsCompleted).rows;

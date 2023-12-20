@@ -5,6 +5,7 @@ import Row from "./row";
 export default async function TableTodo() {
 
   const {jobsC, jobsU} = await fetchJobs();
+  console.log(jobsC, jobsU);
   
   return (
     <>
@@ -19,7 +20,7 @@ export default async function TableTodo() {
           </tr>
         </thead>
         <tbody>
-          {jobsC.map((job) => (
+          {jobsU.map((job) => (
             <Row key={job.id} job={job} />
           ))}
         </tbody>
@@ -35,7 +36,7 @@ export default async function TableTodo() {
           </tr>
         </thead>
         <tbody>
-          {jobsU.map((job) => (
+          {jobsC.map((job) => (
             <Row key={job.id} job={job} />
           ))}
         </tbody>
