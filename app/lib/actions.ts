@@ -11,6 +11,7 @@ const todoSchema = z.object({
   descrizione: z.string(),
   completato: z.boolean(),
   dataScadenza: z.date(),
+  priority: z.coerce.number(),
 });
 
 const CreateTodo = todoSchema.omit({
@@ -20,15 +21,43 @@ const CreateTodo = todoSchema.omit({
 });
 
 export async function createTodo(formData: FormData) {
-  const { titolo, descrizione } = CreateTodo.parse({
+  const { titolo, descrizione, priority } = CreateTodo.parse({
     titolo: formData.get("titolo"),
     descrizione: formData.get("descrizione"),
+    priority: formData.get("priority"),
   });
   const completato: boolean = false;
   await sql`
-    INSERT INTO jobs (titolo, descrizione, completato)
-    VALUES (${titolo}, ${descrizione}, ${completato})
+    INSERT INTO jobs (titolo, descrizione, completato, priority_id)
+    VALUES (${titolo}, ${descrizione}, ${completato}, ${priority})
   `;
+
+  revalidatePath("/home");
+  redirect("/home");
+}
+
+const UpdateTodo = todoSchema.omit({
+  dataScadenza: true,
+  id: true,
+  completato: true,
+});
+
+export async function updateTodo(id: number, formData: FormData) {
+  const { titolo, descrizione, priority } = UpdateTodo.parse({
+    titolo: formData.get("titolo"),
+    descrizione: formData.get("descrizione"),
+    priority: formData.get("priority"),
+  });
+
+  try {
+    await sql`
+          UPDATE jobs
+          SET titolo = ${titolo}, descrizione = ${descrizione}, priority = ${priority}
+          WHERE id = ${id}
+        `;
+  } catch (error) {
+    return { message: "Database Error: Failed to Update Jobs." };
+  }
 
   revalidatePath("/home");
   redirect("/home");

@@ -5,7 +5,7 @@ import Row from "./row";
 export default async function TableTodo() {
 
   const {jobsC, jobsU} = await fetchJobs();
-  console.log(jobsC, jobsU);
+  //console.log(jobsC, jobsU);
   
   return (
     <>

@@ -4,5 +4,5 @@ export type Todo = {
     descrizione: string;
     completato: boolean;
     dataScadenza: Date;
-    priority: number;
+    priority_id: number;
   };

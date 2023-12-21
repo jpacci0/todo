@@ -1,13 +1,14 @@
 "use client";
 import Badge from 'react-bootstrap/Badge';
 import { editCompletato } from '@/app/lib/actions';
+import Link from 'next/link';
 
 export default function Row(props: any) {
   const handlerRow = (jobId: number) => {
     console.log("click", jobId);
   };
 
-  console.log(props);
+  // console.log(props);
 
   let badgeClass = ''; // Classe di default se la priorità non corrisponde a nessun caso
   switch (props.job.prio) {
@@ -29,7 +30,7 @@ export default function Row(props: any) {
   }
 
   return (
-    <tr onClick={() => handlerRow(props.id)}>
+    <tr onClick={() => handlerRow(props.job.id)}>
       <td>
         {props.job.completato ? (
           <button onClick={() => editCompletato(props.job.id)} title="Edit Completato">
@@ -60,9 +61,9 @@ export default function Row(props: any) {
           </button>
         )}
       </td>
-      <td>{props.job.titolo}</td>
-      <td><Badge bg={badgeClass}>{props.job.prio}</Badge></td>
-      <td>{props.job.datascadenza ? props.job.datascadenza.toLocaleDateString() : ''}</td>
+      <td><Link href={`home/${props.job.id}/edit`}>{props.job.titolo}</Link></td>
+      <td><Link href={`home/${props.job.id}/edit`}><Badge bg={badgeClass}>{props.job.prio}</Badge></Link></td>
+      <td><Link href={`home/${props.job.id}/edit`}>{props.job.datascadenza ? props.job.datascadenza.toLocaleDateString() : ''}</Link></td>
     </tr>
   );
 }
