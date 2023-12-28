@@ -19,10 +19,10 @@ export default function Row(props: any) {
       badgeClass = 'primary';
       break;
     case 'alta':
-      badgeClass = 'danger';
+      badgeClass = 'warning';
       break;
     case 'urgente':
-      badgeClass = 'warning';
+      badgeClass = 'danger';
       break;
     default:
       badgeClass = 'default'; // Aggiungi una classe di default nel caso in cui la priorità non sia gestita
