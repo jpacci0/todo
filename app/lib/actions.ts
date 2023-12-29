@@ -7,13 +7,18 @@ import { redirect } from "next/navigation";
 
 const todoSchema = z.object({
   id: z.number(),
-  titolo: z.string().min(5, { message: "Inserire almeno cinque caratteri titolo" }),
-  descrizione: z.string().min(5, { message: "Inserire almeno cinque caratteri desc" }),
+  titolo: z
+    .string()
+    .min(5, { message: "Inserire almeno cinque caratteri titolo" }),
+  descrizione: z
+    .string()
+    .min(5, { message: "Inserire almeno cinque caratteri desc" }),
   completato: z.boolean(),
   dataScadenza: z.date(),
   priority: z.coerce.number(),
 });
 
+// create todo
 const CreateTodo = todoSchema.omit({
   id: true,
   dataScadenza: true,
@@ -21,18 +26,13 @@ const CreateTodo = todoSchema.omit({
 });
 
 export async function createTodo(prevState: any, formData: FormData) {
-  // CreateTodo.parse({
-  //   titolo: formData.get("titolo"),
-  //   descrizione: formData.get("descrizione"),
-  //   priority: formData.get("priority"),
-  //   completato: true
-  // });
   try {
     // const { titolo, descrizione, priority } = {
     //   titolo: formData.get("titolo")?.toString(),
     //   descrizione: formData.get("descrizione")?.toString(),
     //   priority: formData.get("priority")?.toString(),
     // };
+    console.log(formData);
 
     const { titolo, descrizione, priority } = CreateTodo.parse({
       titolo: formData.get("titolo"),
@@ -48,59 +48,75 @@ export async function createTodo(prevState: any, formData: FormData) {
       descrizione
     )}, ${completato}, ${priority})
     `;
-    
-    console.log("try");
 
+    console.log("try");
   } catch (error) {
     const zodError = error as z.ZodError;
     const errorMap = zodError.flatten().fieldErrors;
     console.log(errorMap["titolo"]?.[0]);
-    
+
     return {
       message: "invalid",
       errors: {
         titolo: errorMap["titolo"]?.[0] ?? null,
         descrizione: errorMap["descrizione"]?.[0] ?? null,
-      }
+      },
     };
   }
   revalidatePath("/home");
   redirect("/home");
 }
 
+// edit todo
 const UpdateTodo = todoSchema.omit({
   dataScadenza: true,
   id: true,
+  completato: true,
 });
 
-export async function updateTodo(id: number, formData: FormData) {
-  const { titolo, descrizione, priority } = UpdateTodo.parse({
-    titolo: formData.get("titolo"),
-    descrizione: formData.get("descrizione"),
-    priority: formData.get("priority"),
-    completato: true,
-  });
+export async function updateTodo(
+  id: number,
+  prevState: any,
+  formData: FormData
+) {
+  console.log(id);
+  console.log(Number(formData.get("priority")));
 
   try {
+    const { titolo, descrizione, priority } = UpdateTodo.parse({
+      titolo: formData.get("titolo"),
+      descrizione: formData.get("descrizione"),
+      priority: Number(formData.get("priority")),
+    });
     await sql`
     UPDATE jobs
-    SET titolo = ${titolo}, descrizione = ${descrizione}, priority = ${priority}
+    SET titolo = ${titolo}, descrizione = ${descrizione}, priority_id = ${priority}
     WHERE id = ${id}
     `;
   } catch (error) {
-    return { message: "Database Error: Failed to Update Jobs." };
+    console.log(error);
+    
+    return { message: "invalid" };
   }
 
   revalidatePath("/home");
   redirect("/home");
 }
 
+// edit completato
 export async function editCompletato(id: number) {
   await sql`
   UPDATE jobs
   SET completato = NOT completato
   WHERE id = ${id};    
   `;
+  revalidatePath("/home");
+  redirect("/home");
+}
+
+// delete todo
+export async function deleteTodo(id: number) {
+  await sql`DELETE FROM jobs WHERE id = ${id}`;
   revalidatePath("/home");
   redirect("/home");
 }

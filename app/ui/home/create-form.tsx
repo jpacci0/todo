@@ -13,8 +13,6 @@ export default function Form() {
   // @ts-ignore
   const [formState, formAction] = useFormState(createTodo, {}); //ho aggiunto ts-ignore perché voleva una specifica
 
-  const { pending } = useFormStatus();
-
   //const prios = fetchPrios();  
   //console.log(prios);
 
