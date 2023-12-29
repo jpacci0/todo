@@ -16,10 +16,16 @@ export function DeleteTodo({ id }: { id: number }) {
     </form>
   );
 }
-
+const state = {
+  message: "",
+  errors: {
+    titolo: "",
+    descrizione: "",
+  },
+};
 export default function Form({ todo, prios }: { todo: any; prios: any }) {
   // //@ts-ignore
-  const [formState, formAction] = useFormState(updateTodo.bind(null, todo.id), {message: ""});
+  const [formState, formAction] = useFormState(updateTodo.bind(null, todo.id), state);
 
   console.log(todo);
   //console.log(prios[0].id);
@@ -36,6 +42,7 @@ export default function Form({ todo, prios }: { todo: any; prios: any }) {
           type="text"
           defaultValue={todo.titolo}
         />
+        {formState?.errors?.titolo && <p>{formState.errors.titolo}</p>}
         <label htmlFor="descrizione">Descrizione</label>
         <input
           id="descrizione"
@@ -43,11 +50,7 @@ export default function Form({ todo, prios }: { todo: any; prios: any }) {
           type="text"
           defaultValue={todo.descrizione}
         />
-        <button type="submit">Edit</button>
-        <button type="button">
-          <a href="/home">Annulla</a>
-        </button>
-
+        {formState?.errors?.descrizione && <p>{formState.errors.descrizione}</p>}
         <select
           title="priority"
           id="prio"
@@ -63,6 +66,10 @@ export default function Form({ todo, prios }: { todo: any; prios: any }) {
             </option>
           ))}
         </select>
+        <button type="submit">Edit</button>
+        <button type="button">
+          <a href="/home">Annulla</a>
+        </button>
       </form>
       {formState?.message === "invalid" && (
           <div className="error">

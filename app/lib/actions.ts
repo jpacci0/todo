@@ -94,9 +94,17 @@ export async function updateTodo(
     WHERE id = ${id}
     `;
   } catch (error) {
-    console.log(error);
-    
-    return { message: "invalid" };
+    const zodError = error as z.ZodError;
+    const errorMap = zodError.flatten().fieldErrors;
+    console.log(errorMap["titolo"]?.[0]);
+
+    return {
+      message: "invalid",
+      errors: {
+        titolo: errorMap["titolo"]?.[0] ?? null,
+        descrizione: errorMap["descrizione"]?.[0] ?? null,
+      },
+    };
   }
 
   revalidatePath("/home");

@@ -1,11 +1,12 @@
 import Link from "next/link";
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import { Button } from "@/components/ui/button"
 
 export function CreateTodo() {
 
   return (
     <Link href="/home/create">
-      <Button variant="primary">
+      <Button variant="outline" size="sm">
         Crea attività
       </Button>
     </Link>

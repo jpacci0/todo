@@ -2,6 +2,10 @@
 import Badge from 'react-bootstrap/Badge';
 import { editCompletato } from '@/app/lib/actions';
 import Link from 'next/link';
+import {
+  TableRow,
+  TableCell,
+} from "@/components/ui/table"
 
 export default function Row(props: any) {
   const handlerRow = (jobId: number) => {
@@ -13,16 +17,16 @@ export default function Row(props: any) {
   let badgeClass = ''; // Classe di default se la priorità non corrisponde a nessun caso
   switch (props.job.prio) {
     case 'bassa':
-      badgeClass = 'success';
+      badgeClass = 'bg-green-50 text-green-700 ring-green-600/20';
       break;
     case 'media':
-      badgeClass = 'primary';
+      badgeClass = 'bg-blue-50 text-blue-700 ring-blue-700/10';
       break;
     case 'alta':
-      badgeClass = 'warning';
+      badgeClass = 'bg-yellow-50 text-yellow-800 ring-yellow-600/20';
       break;
     case 'urgente':
-      badgeClass = 'danger';
+      badgeClass = 'bg-red-50 text-red-700 ring-red-600/10';
       break;
     default:
       badgeClass = 'default'; // Aggiungi una classe di default nel caso in cui la priorità non sia gestita
@@ -30,8 +34,8 @@ export default function Row(props: any) {
   }
 
   return (
-    <tr onClick={() => handlerRow(props.job.id)}>
-      <td>
+    <TableRow onClick={() => handlerRow(props.job.id)}>
+      <TableCell className='p-2 w-1/6 text-center'>
         {props.job.completato ? (
           <button onClick={() => editCompletato(props.job.id)} title="Edit Completato">
             <svg
@@ -60,11 +64,13 @@ export default function Row(props: any) {
             </svg>
           </button>
         )}
-      </td>
-      <td><Link href={`home/${props.job.id}/edit`}>{props.job.titolo}</Link></td>
-      <td><Link href={`home/${props.job.id}/edit`}><Badge bg={badgeClass}>{props.job.prio}</Badge></Link></td>
-      <td><Link href={`home/${props.job.id}/edit`}>{props.job.datascadenza ? props.job.datascadenza.toLocaleDateString() : ''}</Link></td>
-    </tr>
+      </TableCell>
+      <TableCell className='p-2 w-3/6'><Link href={`home/${props.job.id}/edit`}>{props.job.titolo}</Link></TableCell>
+      <TableCell className='p-2 w-1/6 text-center'><Link href={`home/${props.job.id}/edit`}><span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset ${badgeClass}`}>
+        {props.job.prio}
+      </span></Link></TableCell>
+      <TableCell className='p-2 w-1/6 text-center hidden sm:table-cell'><Link href={`home/${props.job.id}/edit`}>{props.job.datascadenza ? props.job.datascadenza.toLocaleDateString() : ''}</Link></TableCell>
+    </TableRow>
   );
 }
 
