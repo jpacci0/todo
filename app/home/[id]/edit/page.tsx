@@ -7,7 +7,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         fetchTodoById(id),
         fetchPrios(),
     ]);
-console.log(prios);
+//console.log(prios);
+console.log(todo);
+
 
   return (
     <>

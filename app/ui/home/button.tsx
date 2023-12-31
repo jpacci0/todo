@@ -6,7 +6,7 @@ export function CreateTodo() {
 
   return (
     <Link href="/home/create">
-      <Button variant="outline" size="sm" className="mt-5 mx-3">
+      <Button variant="outline" size="sm" className="mt-3 mx-3">
         Crea attività
       </Button>
     </Link>

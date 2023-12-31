@@ -22,7 +22,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={
-          "flex flex-col justify-center w-screen h-screen"
+          "flex flex-col justify-center items-center w-screen h-screen"
         }
       >
         <ThemeProvider

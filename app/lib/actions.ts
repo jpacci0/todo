@@ -9,10 +9,10 @@ const todoSchema = z.object({
   id: z.number(),
   titolo: z
     .string()
-    .min(5, { message: "Inserire almeno cinque caratteri titolo" }),
+    .min(5, { message: "Inserire almeno cinque caratteri" }),
   descrizione: z
-    .string()
-    .min(5, { message: "Inserire almeno cinque caratteri desc" }),
+    .string(),
+    // .min(5, { message: "Inserire almeno cinque caratteri" }),
   completato: z.boolean(),
   dataScadenza: z.date(),
   priority: z.coerce.number(),
@@ -59,7 +59,7 @@ export async function createTodo(prevState: any, formData: FormData) {
       message: "invalid",
       errors: {
         titolo: errorMap["titolo"]?.[0] ?? null,
-        descrizione: errorMap["descrizione"]?.[0] ?? null,
+        // descrizione: errorMap["descrizione"]?.[0] ?? null,
       },
     };
   }
@@ -102,7 +102,7 @@ export async function updateTodo(
       message: "invalid",
       errors: {
         titolo: errorMap["titolo"]?.[0] ?? null,
-        descrizione: errorMap["descrizione"]?.[0] ?? null,
+        // descrizione: errorMap["descrizione"]?.[0] ?? null,
       },
     };
   }
