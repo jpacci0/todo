@@ -23,7 +23,7 @@ export default async function TableTodo() {
   //console.log(jobsC, jobsU);
 
   return (
-    <div className="w-full p-5">
+    <div className="w-full p-3">
       <Accordion type="single" defaultValue="item-1">
         <AccordionItem value="item-1">
           <AccordionTrigger>Da fare</AccordionTrigger>
