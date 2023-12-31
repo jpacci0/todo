@@ -40,7 +40,9 @@ export default function Form() {
             className="block w-80 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-300 sm:text-sm sm:leading-6"
             placeholder="Inserisci la descrizione"
           />
-          {formState?.errors?.titolo && <p className="text-red-500 mt-2">{formState.errors.titolo}</p>}
+          {formState?.errors?.titolo && (
+            <p className="text-red-500 mt-2">{formState.errors.titolo}</p>
+          )}
         </div>
         {/* <label htmlFor="titolo">Titolo</label>
         <input id="titolo" name="titolo" type="text" />
@@ -107,15 +109,15 @@ export default function Form() {
           <option value="4">Urgente</option>
         </select> */}
 
-<div className="grid grid-cols-2 gap-4 mt-4">
-<Submit />
-  <button
-    type="button"
-    className="w-full border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700"
-  >
-    <a href="/home">Annulla</a>
-  </button>
-</div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <Submit />
+          <button
+            type="button"
+            className="w-full border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700"
+          >
+            <a href="/home">Annulla</a>
+          </button>
+        </div>
 
         {/* <button type="submit">{pending ? "Submitting..." : "Submit"}</button> */}
         {/* <button type="button" className="border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700">

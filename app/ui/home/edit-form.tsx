@@ -12,7 +12,7 @@ export function DeleteTodo({ id }: { id: number }) {
 
   return (
     <form action={deleteTodoWithId} className="w-80">
-      <button className="mt-4 border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700">
+      <button className="w-full mt-4 border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700">
         Elimina
       </button>
     </form>

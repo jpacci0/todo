@@ -23,7 +23,7 @@ export default async function TableTodo() {
   //console.log(jobsC, jobsU);
 
   return (
-    <div className="w-full p-3">
+    <div className="w-full p-3 text-xl">
       <Accordion type="single" defaultValue="item-1">
         <AccordionItem value="item-1">
           <AccordionTrigger>Da fare</AccordionTrigger>
@@ -32,12 +32,12 @@ export default async function TableTodo() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-1/6 p-2"></TableHead>
-                  <TableHead className="w-3/6 p-2">Titolo</TableHead>
-                  <TableHead className="w-1/6 p-2 text-center">Priorità</TableHead>
-                  <TableHead className="w-1/6 p-2 text-center hidden sm:table-cell">Data Scadenza</TableHead>
+                  <TableHead className="w-3/6 p-2 text-lg">Titolo</TableHead>
+                  <TableHead className="w-1/6 p-2 text-center text-lg">Priorità</TableHead>
+                  <TableHead className="w-1/6 p-2 text-center text-lg hidden sm:table-cell">Data Scadenza</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody className="text-base">
                 {jobsU.map((job) => (
                   <Row key={job.id} job={job} />
                 ))}
@@ -52,12 +52,12 @@ export default async function TableTodo() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-1/6 p-2"></TableHead>
-                  <TableHead className="w-3/6 p-2">Titolo</TableHead>
-                  <TableHead className="w-1/6 p-2 text-center">Priorità</TableHead>
-                  <TableHead className="w-1/6 p-2 text-center hidden sm:table-cell">Data Scadenza</TableHead>
+                  <TableHead className="w-3/6 p-2 text-lg">Titolo</TableHead>
+                  <TableHead className="w-1/6 p-2 text-center text-lg">Priorità</TableHead>
+                  <TableHead className="w-1/6 p-2 text-center text-lg hidden sm:table-cell">Data Scadenza</TableHead>
                 </TableRow>
               </TableHeader>
-              <TableBody>
+              <TableBody className="text-sm">
                 {jobsC.map((job) => (
                   <Row key={job.id} job={job} />
                 ))}

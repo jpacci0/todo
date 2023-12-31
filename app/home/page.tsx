@@ -8,8 +8,8 @@ export default function Page() {
     <>
       <Suspense fallback={<Loading />}>
         <TableTodo />
+        <CreateTodo />
       </Suspense>
-      <CreateTodo />
     </>
   );
 
