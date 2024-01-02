@@ -1,6 +1,7 @@
 import { unstable_noStore as noStore } from "next/cache";
 import { sql } from "@vercel/postgres";
 import { log } from "console";
+import { notFound, redirect } from "next/navigation";
 
 export async function fetchJobs() {
   noStore();
@@ -48,10 +49,21 @@ export async function fetchPrios() {
 
 export async function fetchTodoById(id: number) {
   noStore();
-  // SELECT jobs.*, priority.prio AS prio
-  // FROM jobs
-  // JOIN priority ON jobs.priority_id = priority.id
-  // WHERE jobs.completato = false;
+
+  const checkId = await sql`
+  SELECT COUNT(*)
+  FROM jobs
+  WHERE id = ${id}
+`;
+
+// Ottieni il numero di righe restituite dalla query di verifica
+  const count = checkId.rows[0].count;
+
+  if (count === '0') {
+    redirect(notFound());
+    // throw new Error("L'ID non esiste nel database.");
+  }
+
   try {
     const data = await sql`
       SELECT jobs.*, priority.prio AS prio

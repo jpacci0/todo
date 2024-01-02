@@ -6,6 +6,7 @@ import { deleteTodo } from "@/app/lib/actions";
 import { fetchPrios } from "@/app/lib/data";
 import { Todo } from "@/app/lib/definitions";
 import { useFormState } from "react-dom";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function DeleteTodo({ id }: { id: number }) {
   const deleteTodoWithId = deleteTodo.bind(null, id);
@@ -149,6 +150,15 @@ export default function Form({ todo, prios }: { todo: any; prios: any }) {
         </div>
       </form>
       <DeleteTodo id={todo.id} />
+      {formState?.message === "invalid" && (
+          <Alert variant="destructive" className="mt-4 w-80">
+            {/* <AlertCircle className="h-4 w-4" /> */}
+            <AlertTitle>Errore</AlertTitle>
+            <AlertDescription>
+                C&apos;è stato un errore durante l&apos;invio del form
+            </AlertDescription>
+          </Alert>
+        )}
       {/* {formState?.message === "invalid" && (
         <div className="error">{formState.message}</div>
       )} */}

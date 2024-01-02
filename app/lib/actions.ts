@@ -49,6 +49,10 @@ export async function createTodo(prevState: any, formData: FormData) {
     )}, ${completato}, ${priority})
     `;
 
+    // return {
+    //   message: "valid",
+    // };
+    
     console.log("try");
   } catch (error) {
     const zodError = error as z.ZodError;

@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { set } from "zod";
 
 export default function NotFound() {
   const router = useRouter();
@@ -19,7 +17,7 @@ export default function NotFound() {
             Pagina non trovata
           </h1>
           <p className="mt-6 text-base leading-7 text-gray-600">
-            Ci scusiamo ma non riusciamo a trovare la pagina a cui vuoi accedere.
+            Ci scusiamo ma non riusciamo a trovare il task.
           </p>
           <div className="mt-10 flex items-center justify-center gap-x-6">
             <Link

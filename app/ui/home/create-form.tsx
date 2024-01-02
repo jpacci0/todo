@@ -3,13 +3,15 @@
 import { createTodo } from "@/app/lib/actions";
 import { fetchPrios } from "@/app/lib/data";
 import { useFormState, useFormStatus } from "react-dom";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 function Submit() {
   const status = useFormStatus();
+
   return (
     <button
       disabled={status.pending}
-      className="border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700"
+      className="border p-2 rounded hover:bg-slate-100 dark:hover:bg-slate-700"
     >
       Invia
     </button>
@@ -19,7 +21,6 @@ function Submit() {
 export default function Form() {
   // @ts-ignore
   const [formState, formAction] = useFormState(createTodo, {}); //ho aggiunto ts-ignore perché voleva una specifica
-
   //const prios = fetchPrios();
   //console.log(prios);
 
@@ -83,7 +84,6 @@ export default function Form() {
             id="prio"
             defaultValue="1"
             name="priority"
-            autoComplete="prio"
             className="block w-80 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
           >
             <option value="1">Seleziona la priorità</option>
@@ -94,21 +94,6 @@ export default function Form() {
           </select>
         </div>
 
-        {/* <select title="priority" id="prio" name="priority" defaultValue="1">
-          <option value="1">
-            Select a prio
-          </option>
-          {prios.map((prio: any) => (
-            <option key={prio.id} value={prio.id}>
-              {prio.prio}
-            </option>
-          ))}
-          <option value="1">Bassa</option>
-          <option value="2">Media</option>
-          <option value="3">Alta</option>
-          <option value="4">Urgente</option>
-        </select> */}
-
         <div className="grid grid-cols-2 gap-4 mt-4">
           <Submit />
           <button
@@ -118,6 +103,15 @@ export default function Form() {
             <a href="/home">Annulla</a>
           </button>
         </div>
+        {formState?.message === "invalid" && (
+          <Alert variant="destructive" className="mt-4">
+            {/* <AlertCircle className="h-4 w-4" /> */}
+            <AlertTitle>Errore</AlertTitle>
+            <AlertDescription>
+              C&apos;è stato un errore durante l&apos;invio del form
+            </AlertDescription>
+          </Alert>
+        )}
 
         {/* <button type="submit">{pending ? "Submitting..." : "Submit"}</button> */}
         {/* <button type="button" className="border p-2 rounded hover:bg-slate-100 dark:hover:hover:bg-slate-700">
