@@ -6,12 +6,23 @@ import {
   TableRow,
   TableCell,
 } from "@/components/ui/table"
+import { useToast } from "@/components/ui/use-toast"
 
 export default function Row(props: any) {
+  const { toast } = useToast();
+
   const handlerRow = (jobId: number) => {
     console.log("click", jobId);
   };
 
+  const handleEditCompletato = (id: number) => {
+    // Logica per l'editCompletato con l'ID
+    editCompletato(id);
+    toast({
+      title: "Completato",
+      description: "Hai aggiornato lo stato della attività",
+    })
+  }
   // console.log(props);
 
   let badgeClass = ''; // Classe di default se la priorità non corrisponde a nessun caso
@@ -37,7 +48,7 @@ export default function Row(props: any) {
     <TableRow onClick={() => handlerRow(props.job.id)}>
       <TableCell className='p-2 w-1/6 text-center'>
         {props.job.completato ? (
-          <button onClick={() => editCompletato(props.job.id)} title="Edit Completato">
+          <button onClick={() => handleEditCompletato(props.job.id)} title="Edit Completato">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -50,7 +61,7 @@ export default function Row(props: any) {
             </svg>
           </button>
         ) : (
-          <button onClick={() => editCompletato(props.job.id)} title="Edit Completato">
+          <button onClick={() => handleEditCompletato(props.job.id)} title="Edit Completato">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
